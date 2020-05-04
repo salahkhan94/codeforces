@@ -1,4 +1,4 @@
-//Problem statement can be found here : https://codeforces.com/problemset/problem/99/A
+//Problem statement can be found here  https://codeforces.com/problemset/problem/99/A
 
 #include <iostream>
 #include <cmath>
