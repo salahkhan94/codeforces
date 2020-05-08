@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 bitset <100000> Muk, Sum;
@@ -5,7 +6,7 @@ unsigned int a[100000], b[100000], l1, l2, r1, r2;
 
 int main(){
     cin.sync_with_stdio(false); 
-    unsigned  int N, M, Q;
+    unsigned  int N, M, Q; 
     cin >> N >> M >> Q;
 
     for(unsigned int i=1;i<=N;i++)
@@ -35,5 +36,4 @@ int main(){
         Muk.reset();
         Sum.reset();
     }
-
 }
