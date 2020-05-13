@@ -7,7 +7,7 @@ public:
         std::ios::sync_with_stdio(false);
         cin.tie(nullptr);
         if(s.empty()) return 0;
-        set<char> sp;
+        unordered_set<char> sp;
         int count =0,l=0,j=0;
         for(auto c:s){
             auto itr = sp.insert(c);
