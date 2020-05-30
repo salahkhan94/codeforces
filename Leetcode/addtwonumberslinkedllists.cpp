@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct ListNode {
+typedef struct ListNode {
     int val;
     ListNode *next;
     ListNode() : val(0), next(nullptr) {}
@@ -9,9 +9,16 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
  
+ typedef struct cood{
+     int x;
+     int y;
+ };
+
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        cood c;
+        c.x= 9;
         std::ios::sync_with_stdio(false);
         cin.tie(nullptr);
         if(l1==NULL && l2 ==NULL){
