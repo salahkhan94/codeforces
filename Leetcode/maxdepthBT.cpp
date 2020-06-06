@@ -11,29 +11,14 @@ struct TreeNode {
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-class Solution {
-public:
-    vector<int> postorderTraversal(TreeNode* root) {
-        vector<int> pot;
-        if(!root) return pot;
-        if(root->left!=NULL){
-            auto l = postorderTraversal(root->left);
-            pot.insert(pot.end(), l.begin(), l.end());
-        }
-        if(root->right!=NULL)  {
-            auto r = postorderTraversal(root->right);
-            pot.insert(pot.end(), r.begin(), r.end());
-        }
-        
-        pot.push_back(root->val);
-        
-        return pot;      
-    }
-};
 
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        
+        if(!root) return 0;
+        int depth;
+        depth = max(maxDepth(root->left),maxDepth(root->right));
+        depth++;
+        return depth;
     }
 };
