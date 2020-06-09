@@ -131,25 +131,27 @@ string findSum(string str1, string str2)
 string karatsubamult(string x, string y){
 
     string s={'0'};
-    while (x.size()>y.size())
+    while (x.size()>y.size() || y.size()<2 || y.size()%2)
     {
         y.insert(0, s);
     }
-    while (x.size()<y.size())
+    while (x.size()<y.size() || x.size()<2 || x.size()%2)
     {
         x.insert(0, s);
     }
+    cout<<"x is : "<< x<< endl;
+    cout<<"y is : "<< y<< endl;
 
     string ans;
     if(x.size()>2){
         string ac, bd, adplusbc, temp;
         ac = karatsubamult(x.substr(0, x.size()/2), y.substr(0, y.size()/2));
-        bd = karatsubamult(x.substr((x.size()/2),ceil(x.size()/2)),y.substr((y.size()/2),ceil(y.size()/2)) );
-        temp = karatsubamult(findSum(x.substr(0, x.size()/2), x.substr((x.size()/2),ceil(x.size()/2))), findSum(y.substr(0, y.size()/2), y.substr((y.size()/2),ceil(y.size()/2))));
+        bd = karatsubamult(x.substr((x.size()/2),ceil((float)x.size()/2)),y.substr((y.size()/2),ceil((float)y.size()/2)) );
+        temp = karatsubamult(findSum(x.substr(0, x.size()/2), x.substr((x.size()/2),ceil((float)x.size()/2))), findSum(y.substr(0, y.size()/2), y.substr((y.size()/2),ceil((float)y.size()/2))));
         temp = findDiff(temp, ac);
         adplusbc = findDiff(temp, bd);
         ac = mult10(ac, x.size());
-        adplusbc = mult10(adplusbc, x.size()/2);
+        adplusbc = mult10(adplusbc, ceil((float)x.size()/2));
         ans = findSum(ac, adplusbc);
         ans = findSum(ans, bd);
     }
@@ -160,16 +162,12 @@ string karatsubamult(string x, string y){
         b = (int)x[1] - '0';
         c = (int)y[0] - '0';
         d = (int)y[1] - '0';
-        cout<<a<<b<<c<<d<<endl;
         ac = a*c;
         bd = b*d;
         temp = (a + b) * (c + d);
         adplusbc = temp-ac-bd;
         ac*=pow(10,x.size());
         adplusbc*=pow(10, x.size()/2);
-        cout<<ac<<endl;
-        cout<<adplusbc<<endl;
-        cout<<bd<<endl;
         ans = to_string( ac + adplusbc + bd);
     }
     return ans;
