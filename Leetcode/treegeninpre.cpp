@@ -13,10 +13,11 @@ struct TreeNode {
 class Solution {
 public:
     unordered_map<int , int> inord;
-    TreeNode* util(vector<int>& preorder, vector<int>& inorder, int st,int en, int pre) {
+    int pre=0;
+    TreeNode* util(vector<int>& preorder, vector<int>& inorder, int st,int en) {
         TreeNode * root = new TreeNode();
         if(st<=en){
-            root->val = preorder[pre];
+            root->val = preorder[pre++];
         }
         else {
             root = NULL;
@@ -24,8 +25,8 @@ public:
         }
         if(st < en){
             auto pos = inord[root->val];
-            root->left = util(preorder, inorder, st, pos-1, pre+1);
-            root->right = util(preorder, inorder, pos+1, en, pos+1);
+            root->left = util(preorder, inorder, st, pos-1);
+            root->right = util(preorder, inorder, pos+1, en);
         }
         return root;
     }
@@ -35,7 +36,7 @@ public:
             inord[inorder[i]] = i;
         }
 
-        return util(preorder, inorder, 0, inorder.size()-1, 0);
+        return util(preorder, inorder, 0, inorder.size()-1);
     }
 };
 
