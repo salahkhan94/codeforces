@@ -13,42 +13,89 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        
+        if(p ==root || q == root) return root;
+        levelOrder(root, p, q);
+        auto pans = ancestors[p];
+        auto qans = ancestors[q];
+        auto i = pans.rbegin();
+        for(;i!= pans.rend();++i){
+            if(find(qans.begin(), qans.end(), *i)!= qans.end()) break;
+        }
+        return *i;
     }
     
-    vector<vector<int>> levelOrder(TreeNode* root){
+    void levelOrder(TreeNode* root, TreeNode* p, TreeNode* q){
         int parctr=0, childctr=0;
-        if(root==NULL) return ans;
+        if(root==NULL) return;
         else {
             par.push(root);
+            vector<TreeNode *> s;
+            s.push_back(root);
+            ancestors[root] = s;
             parctr++;
         }    
-        vector<int> temp;
         bool pf = false,qf = false;
-        while (!par.empty())
+        while (!pf || !qf)
         {
             TreeNode * tempnode = par.front();
-            temp.push_back(tempnode->val);
             par.pop();
             parctr--;
             if(tempnode->left) {
+                auto ances = ancestors[tempnode];
+                ances.push_back(tempnode->left);
+                ancestors[tempnode->left] = ances;
+                if(tempnode->left == p) pf = true;
+                else if(tempnode->left == q) qf = true;
                 par.push(tempnode->left);
                 childctr++;
             }
             if(tempnode->right){
+                auto ances = ancestors[tempnode];
+                ances.push_back(tempnode->right);
+                ancestors[tempnode->right] = ances;
+                if(tempnode->right == p) pf = true;
+                else if(tempnode->right == q) qf = true;
                 par.push(tempnode->right);
                 childctr++;
             }
             if(parctr==0){
-                ans.push_back(temp);
                 parctr = childctr;
                 childctr = 0;
-                temp.clear();
             }
         }
-        return ans;
     }
 private:
+    unordered_map<TreeNode *, vector<TreeNode*> > ancestors;
     queue<TreeNode*> par;
-    vector<vector<int>> ans;
+};
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
+        tlowestCommonAncestor(root, p, q);
+        return ans;
+    }
+
+    bool tlowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
+        bool mid = false, left = false, right = false;
+        if(root == p || root == q) mid = true;
+
+        if(root->left!=nullptr && !ans) {
+            left = lowestCommonAncestor(root->left, p, q);
+        }
+        
+        if(root->right!=nullptr && !ans) {
+            right = lowestCommonAncestor(root->right, p, q);
+        }
+
+        if((mid && left) || (mid && right) || (left && right)) {
+            ans = root;
+        }
+        return (mid || left || right);
+    }
+
+private:
+    TreeNode *ans = nullptr;
 };
